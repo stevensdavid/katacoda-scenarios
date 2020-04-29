@@ -1,0 +1,33 @@
+{
+  "title": "Create a Self-Hosted Git Server",
+  "description": "A guided tour of how hosting a git server works and how a GUI can be added.",
+  "difficulty": "intermediate",
+  "time": "20 minutes",
+  "details": {
+    "steps": [{
+      "title": "Create a CLI Git server",
+      "text": "git-server.md",
+      "credits":"Adapted from https://www.linux.com/training-tutorials/how-run-your-own-git-server/"
+    },
+    {
+      "title":"Containerize it with Dcoker",
+      "text": "docker.md"
+    }, 
+  {
+    "title":"Setup Gitea as a GUI",
+    "text":"gitea.md"
+  }],
+    "intro": {
+      "text": "intro.md"
+    },
+    "finish": {
+      "text": "finish.md"
+    }
+  },
+  "environment": {
+    "uilayout": "terminal-terminal"
+  },
+  "backend": {
+    "imageid": "bash"
+  }
+}

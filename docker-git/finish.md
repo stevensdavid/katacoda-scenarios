@@ -1,0 +1,1 @@
+You've set up a functional Git server!
