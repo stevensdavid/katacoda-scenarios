@@ -51,21 +51,21 @@ The Dockerfile can be built by executing
 `docker build -t git-container .`{{execute T1}}
 
 Once it is done, we can run the container by executing
-`docker run -p 22:22 git-container`{{execute T1}}
+`docker run -p 2222:22 git-container`{{execute T1}}
 
-The flag `-p 22:22` maps port 22 of the container to port 22 of the machine itself, meaning that any SSH connections to the server will be forwarded to the container. This means that it will no longer be possible to SSH directly to the server, which can make it more difficult to maintain. As such, it might be worth using a different port for the container. The consequence of this would be that the client would need to connect to `git:portXX@host-ip` instead of `git@host-ip`. 
+The flag `-p 2222:22` maps port 22 of the container to port 2222 of the machine itself. This means that the client will have to specify that they are connecting to port 2222 when they use SSH.
 
 ## Configuring the client
 The client is then configured in the same way as when the server was not running in a container. 
 
-`cat ~/.ssh/id_rsa.pub | ssh git@localhost "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" && ssh git@localhost "mkdir -p /home/git/project-1.git && cd /home/git/project-1.git && git init --bare" && sudo apt install git && mkdir -p ~/git/project && cd ~/git/project && git init && git config --global user.name "Your Name" && git config --global user.email "you@example.com"`{{execute T2}}
+`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub | ssh git@localhost:2222 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" && ssh git@localhost:2222 "mkdir -p /home/git/project-1.git && cd /home/git/project-1.git && git init --bare" && sudo apt install git && mkdir -p ~/git/project && cd ~/git/project && git init && git config --global user.name "Your Name" && git config --global user.email "you@example.com"`{{execute T2}}
 
 Create a file, add it and commit it.
 `echo 'Hello' > greeting.txt && git add greeting.txt && git commit -m "Greeting added!"`{{execute T2}}
 
 As the client is not able to know that the Git server is running in a container, we add it as a remote the same way as before. This is where we would have to specify the port if a different mapping was used.
 
-`git remote add origin ssh://git@localhost/home/git/project-1.git`{{execute T2}}
+`git remote add origin ssh://git@localhost:2222/home/git/project-1.git`{{execute T2}}
 
 Finally, we can push the changes to the server.
 
@@ -73,6 +73,6 @@ Finally, we can push the changes to the server.
 
 The repository has now been updated in the container, and is once again visible for any other clients.
 
-`cd .. && git clone ssh://git@localhost:/home/git/project-1.git project-copy`{{execute T2}}
+`cd .. && git clone ssh://git@localhost:2222:/home/git/project-1.git project-copy`{{execute T2}}
 
 `cd project-copy && cat greeting.txt`{{execute T2}}
