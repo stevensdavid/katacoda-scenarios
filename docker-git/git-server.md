@@ -3,76 +3,77 @@
 How to setup your own Git server
 
 ## Setting up the server
-First install `git-core on Host 1:
+First install `git-core` on the server machine:
 
-`sudo apt update && sudo apt-get install git-core`{{copy}}
+`sudo apt update && sudo apt-get install git-core`{{execute T1}}
 
 In order to allow clients to connect to the server, we need to setup SSH access. Start by installing a SSH server.
 
-`sudo apt install openssh-server`{{copy}}
+`sudo apt install openssh-server`{{execute T1}}
 
 Make sure SSH is running: 
 
-`service ssh status`{{copy}}
-
-We also need to allow SSH access through the Ubuntu firewall:
-
-`sudo ufw allow ssh`{{copy}}
+`sudo service ssh start`{{execute T1}}
 
 Next add a user for the Git server and a password:
 
-`sudo useradd -m git && passwd git`{{copy}}
+`sudo useradd -m git && passwd git`{{execute T1}}
 
 Let's change user to the newly created `git` account.
 
-`sudo su git`{{copy}}
+`sudo su git`{{execute T1}}
 
 Next create an ssh key for your new user. The command will ask for a file location and a passphrase: accept the default file and leave the passphrase empty. In your real server, the passphrase should be made secure.
 
-`ssh-keygen -t rsa`{{copy}}
-
+`ssh-keygen -t rsa`{{execute T1}}
 
 ## Adding an authorized user
-On host 2, add your public key to the repo:
+In order to connect to the Git server without having to enter its password, let's add the client's public SSH key to the list of authorized keys on the server. Start by generating a SSH key on the client if you do not already have one:
 
-`cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"`{{copy}}
+`ssh-keygen -t rsa`{{execute T2}}
+
+As before, the default settings are sufficient for this tutorial. In real life you'll want a more secure passphrase.
+
+Next, add the client's public key to the server:
+
+`cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"`{{execute T2}}
 
 ## Create a repository
 
-On host 1, create a new folder, cd to it:
+On the server, create a new folder and cd to it:
 
-`mkdir -p /home/git/project-1.git && cd /home/git/project-1.git`{{copy}}
+`mkdir -p /home/git/project-1.git && cd /home/git/project-1.git`{{execute T1}}
 
 Now we have to initialize the folder as a bare Git repository. This means that it won't have a working tree - perfect for a server, since we don't want to make any changes to the repository from the server!
 
-`git init --bare`{{copy}}
+`git init --bare`{{execute T1}}
 
 Now we want to push something to our new Git repository on our local machine.
 
-On host 2, create a new folder, cd to it and intialize it as a regular Git repository:
+On the client, create a new folder, cd to it and intialize it as a regular Git repository:
 
-`mkdir -p ~/git/project && cd ~/git/project`{{copy}}
+`mkdir -p ~/git/project && cd ~/git/project`{{execute T2}}
 
-`git init`{{copy}}
+`git init`{{execute T2}}
 
 Create a sample file: 
 
-`echo 'Hello' > greeting.txt`{{copy}}
+`echo 'Hello' > greeting.txt`{{execute T2}}
 
 Add it and commit it:
 
-`git add greeting.txt && git commit -m "Greeting added!"`{{copy}}
+`git add greeting.txt && git commit -m "Greeting added!"`{{execute T2}}
 
 Next add the server as a remote and push your changes to it:
 
-`git remote add origin ssh://git@localhost/home/git/project-1.git`{{copy}}
+`git remote add origin ssh://git@localhost/home/git/project-1.git`{{execute T2}}
 
-`git push`{{copy}}
+`git push`{{execute T2}}
 
 The changes are now stored on the server! Test it by cloning:
 
-`cd .. && git clone ssh://git@localhost:/home/git/project-1.git project-copy`{{copy}}
+`cd .. && git clone ssh://git@localhost:/home/git/project-1.git project-copy`{{execute T2}}
 
 See that everything is there! 
  
-`user@localhost:~ $ cd project-copy && cat greeting.txt`{{copy}}
+`user@localhost:~ $ cd project-copy && cat greeting.txt`{{execute T2}}
