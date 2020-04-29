@@ -5,11 +5,11 @@ How to setup your own Git server
 ## Setting up the server
 First install `git-core` on the server machine:
 
-`sudo apt update && sudo apt-get install git-core`{{execute T1}}
+`sudo apt update && sudo apt-get install -y git-core`{{execute T1}}
 
 In order to allow clients to connect to the server, we need to setup SSH access. Start by installing a SSH server.
 
-`sudo apt install openssh-server`{{execute T1}}
+`sudo apt install -y openssh-server`{{execute T1}}
 
 Make sure SSH is running: 
 
@@ -36,21 +36,28 @@ As before, the default settings are sufficient for this tutorial. In real life y
 
 Next, add the client's public key to the server:
 
-`cat ~/.ssh/id_rsa.pub | ssh git@remote-server "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"`{{execute T2}}
+`cat ~/.ssh/id_rsa.pub | ssh git@localhost "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"`{{execute T2}}
+
+Of course, `localhost` would be replaced with the IP address of your server if this were to be replicated on a real machine.
 
 ## Create a repository
+In order to create new repositories through the CLI, we have to create them manually on the server. Luckily, we can do this over SSH. Start by logging into the server from the client:
 
-On the server, create a new folder and cd to it:
+`ssh git@localhost`{{execute T2}}
 
-`mkdir -p /home/git/project-1.git && cd /home/git/project-1.git`{{execute T1}}
+Create a new folder and cd to it:
+
+`mkdir -p /home/git/project-1.git && cd /home/git/project-1.git`{{execute T2}}
 
 Now we have to initialize the folder as a bare Git repository. This means that it won't have a working tree - perfect for a server, since we don't want to make any changes to the repository from the server!
 
-`git init --bare`{{execute T1}}
+`git init --bare`{{execute T2}}
 
-Now we want to push something to our new Git repository on our local machine.
+Now we want to push something to our new Git repository on our local machine. Let's logout of the server.
 
-On the client, create a new folder, cd to it and intialize it as a regular Git repository:
+`exit`{{execute T2}}
+
+On the client machine, create a new folder, cd to it and intialize it as a regular Git repository:
 
 `mkdir -p ~/git/project && cd ~/git/project`{{execute T2}}
 
@@ -70,10 +77,10 @@ Next add the server as a remote and push your changes to it:
 
 `git push`{{execute T2}}
 
-The changes are now stored on the server! Test it by cloning:
+The changes are now stored on the server! Test it by cloning the repository to a new folder on the client, such as `project-copy`:
 
 `cd .. && git clone ssh://git@localhost:/home/git/project-1.git project-copy`{{execute T2}}
 
 See that everything is there! 
  
-`user@localhost:~ $ cd project-copy && cat greeting.txt`{{execute T2}}
+`cd project-copy && cat greeting.txt`{{execute T2}}
