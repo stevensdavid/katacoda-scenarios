@@ -7,21 +7,30 @@ First install `git-core on Host 1:
 
 `sudo apt update && sudo apt-get install git-core`{{copy}}
 
-Next add a user and a password:
+In order to allow clients to connect to the server, we need to setup SSH access. Start by installing a SSH server.
+
+`sudo apt install openssh-server`{{copy}}
+
+Make sure SSH is running: 
+
+`service ssh status`{{copy}}
+
+We also need to allow SSH access through the Ubuntu firewall:
+
+`sudo ufw allow ssh`{{copy}}
+
+Next add a user for the Git server and a password:
 
 `sudo useradd -m git && passwd git`{{copy}}
 
 Let's change user to the newly created `git` account.
 
-`sudo su git`
+`sudo su git`{{copy}}
 
-Next add create an ssh key for your new user, accept the default settings:
+Next create an ssh key for your new user. The command will ask for a file location and a passphrase: accept the default file and leave the passphrase empty. In your real server, the passphrase should be made secure.
 
 `ssh-keygen -t rsa`{{copy}}
 
-Make sure SSH is running: 
-
-`service ssh status`{{copy}}
 
 ## Adding an authorized user
 On host 2, add your public key to the repo:
