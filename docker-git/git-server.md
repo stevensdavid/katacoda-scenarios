@@ -57,7 +57,11 @@ Now we want to push something to our new Git repository on our local machine. Le
 
 `exit`{{execute T2}}
 
-On the client machine, create a new folder, cd to it and intialize it as a regular Git repository:
+On the client machine, install the Git client:
+
+`sudo apt install git`{{execute T2}}
+
+Create a new folder, cd to it and intialize it as a regular Git repository:
 
 `mkdir -p ~/git/project && cd ~/git/project`{{execute T2}}
 
@@ -67,7 +71,11 @@ Create a sample file:
 
 `echo 'Hello' > greeting.txt`{{execute T2}}
 
-Add it and commit it:
+Setup git on the client:
+
+`git config --global user.name "Your Name" && git config --global user.email "you@example.com"`{{execute T2}}
+
+Add the file and commit it:
 
 `git add greeting.txt && git commit -m "Greeting added!"`{{execute T2}}
 
@@ -75,7 +83,7 @@ Next add the server as a remote and push your changes to it:
 
 `git remote add origin ssh://git@localhost/home/git/project-1.git`{{execute T2}}
 
-`git push`{{execute T2}}
+`git push origin master`{{execute T2}}
 
 The changes are now stored on the server! Test it by cloning the repository to a new folder on the client, such as `project-copy`:
 
