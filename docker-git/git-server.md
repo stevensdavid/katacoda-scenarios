@@ -3,14 +3,17 @@
 How to setup your own Git server
 
 ## Setting up the server
-
 First install `git-core on Host 1:
 
-`sudo apt-get install git-core`{{copy}}
+`sudo apt update && sudo apt-get install git-core`{{copy}}
 
 Next add a user and a password:
 
-`sudo useradd git && passwd 123`{{copy}}
+`sudo useradd -m git && passwd git`{{copy}}
+
+Let's change user to the newly created `git` account.
+
+`sudo su git`
 
 Next add create an ssh key for your new user, accept the default settings:
 
