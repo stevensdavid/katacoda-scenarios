@@ -19,7 +19,7 @@ At this point, we should change user to the `git` user in order to create the ap
 
 `echo 'USER git' >> Dockerfile`{{execute T1}}
 
-`echo 'RUN mkdir -p ~/.ssh && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa' >> Dockerfile`{{execute T1}} 
+`echo "RUN mkdir -p ~/.ssh && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa" >> Dockerfile`{{execute T1}} 
 
 In order to start the SSH server, we have to change back to the root user.
 `echo 'USER root'>> Dockerfile`{{execute T1}}
