@@ -19,14 +19,18 @@ At this point, we should change user to the `git` user in order to create the ap
 
 `echo 'USER git' >> Dockerfile`{{execute T1}}
 
-`echo "RUN mkdir -p ~/.ssh && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa" >> Dockerfile`{{execute T1}} 
+`echo "RUN mkdir -p ~/.ssh && mkdir -p /run/sshd && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa" >> Dockerfile`{{execute T1}} 
 
 In order to start the SSH server, we have to change back to the root user.
 `echo 'USER root'>> Dockerfile`{{execute T1}}
 
+We also have to create a directory for the SSH daemon to use:
+`echo 'RUN mkdir -p /run/sshd' >> Dockerfile`{{execute T1}}
+
 Finally, we expose port 22 to allow incoming SSH connections and start the SSH server using `sshd`.
 
 `echo 'EXPOSE 22' >> Dockerfile`{{execute T1}}
+
 `echo 'CMD ["/usr/sbin/sshd", "-D"]'>> Dockerfile`{{execute T1}}
 
 Our complete Dockerfile is now
@@ -39,6 +43,7 @@ RUN useradd -m git && echo 'git:password123' | chpasswd
 USER git
 RUN mkdir -p ~/.ssh && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
 USER root
+RUN mkdir -p /run/sshd
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 ```
