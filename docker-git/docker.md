@@ -33,14 +33,11 @@ Our complete Dockerfile is now
 ```Dockerfile
 FROM ubuntu:18.04
 RUN apt-get update
-RUN apt-get install -y git-core && \
-    apt-get install -y openssh-server
+RUN apt-get install -y git-core && apt-get install -y openssh-server
 RUN service ssh start
-RUN useradd -m git && \
-    echo 'git:password123' | chpasswd
+RUN useradd -m git && echo 'git:password123' | chpasswd
 USER git
-RUN mkdir -p ~/.ssh && \
-    ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
+RUN mkdir -p ~/.ssh && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
 USER root
 EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]

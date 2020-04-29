@@ -10,7 +10,7 @@
       "credits":"Adapted from https://www.linux.com/training-tutorials/how-run-your-own-git-server/"
     },
     {
-      "title":"Containerize it with Dcoker",
+      "title":"Containerize it with Docker",
       "text": "docker.md"
     }, 
   {
@@ -28,6 +28,6 @@
     "uilayout": "terminal"
   },
   "backend": {
-    "imageid": "bash"
+    "imageid": "docker"
   }
 }
