@@ -23,7 +23,7 @@ Let's change user to the newly created `git` account.
 
 `sudo su git`{{execute T1}}
 
-Next create an ssh key for your new user. The command will ask for a file location and a passphrase: accept the default file and leave the passphrase empty. In your real server, the passphrase should be made secure.
+Next create an ssh key for your new user. The command will ask for a file location and a passphrase: accept the default file and leave the passphrase empty. On your real server, the passphrase should be made secure.
 
 `ssh-keygen -t rsa`{{execute T1}}
 
