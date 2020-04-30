@@ -64,7 +64,7 @@ The flag `-p 2222:22` maps port 22 of the container to port 2222 of the machine 
 ## Configuring the client
 The client is then configured in the same way as when the server was not running in a container. 
 
-`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa && cat ~/.ssh/id_rsa.pub | ssh git@localhost:2222 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" && ssh git@localhost:2222 "mkdir -p /home/git/project-1.git && cd /home/git/project-1.git && git init --bare" && sudo apt install git && mkdir -p ~/git/project && cd ~/git/project && git init && git config --global user.name "Your Name" && git config --global user.email "you@example.com"`{{execute T2}}
+`cat ~/.ssh/id_rsa.pub | ssh git@localhost:2222 "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys" && ssh git@localhost:2222 "mkdir -p /home/git/project-1.git && cd /home/git/project-1.git && git init --bare" && sudo apt install git && mkdir -p ~/git/project && cd ~/git/project && git init && git config --global user.name "Your Name" && git config --global user.email "you@example.com"`{{execute T2}}
 
 Create a file, add it and commit it.
 `echo 'Hello' > greeting.txt && git add greeting.txt && git commit -m "Greeting added!"`{{execute T2}}
