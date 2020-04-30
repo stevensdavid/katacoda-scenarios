@@ -62,7 +62,7 @@ We should also create an admin account under *Optional > Admin Account Settings*
 - Password: `password`{{copy}}
 - Email: `test@example.com`{{copy}}
 
-![The settings for Gogs](img/gogs_settings.png)
+![The settings for Gogs](./assets/gogs_settings.png)
 
 Click install, and you are done with configuring your Git server!
 
