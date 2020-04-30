@@ -33,6 +33,10 @@ Next create a SSH key for your new user. This command will place the keys in `~/
 
 `ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa`{{execute T1}}
 
+We can leave the `git` account now.
+
+`exit`{{execute T1}}
+
 ## Adding an authorized user
 In order to connect to the Git server without having to enter its password, let's add the client's public SSH key to the list of authorized keys on the server. Start by generating a SSH key on the client if you do not already have one:
 

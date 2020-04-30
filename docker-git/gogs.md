@@ -43,7 +43,7 @@ volumes:
 This file will run the Gogs frontend on port `3000`, and allow SSH access through port `10022`. 
 
 Run the server by executing:
-`docker-compose up -d`{{execute T1}}
+`docker-compose up -d`{{execute T2}}
 
 After a few moments, the Gogs configuration screen should be visible at
 https://[[HOST_SUBDOMAIN]]-3000-[[KATACODA_HOST]].environments.katacoda.com
