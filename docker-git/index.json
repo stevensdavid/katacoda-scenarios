@@ -14,8 +14,8 @@
       "text": "docker.md"
     }, 
   {
-    "title":"Setup Gitea as a GUI",
-    "text":"gitea.md"
+    "title":"Setup Gogs as a GUI",
+    "text":"gogs.md"
   }],
     "intro": {
       "text": "intro.md"

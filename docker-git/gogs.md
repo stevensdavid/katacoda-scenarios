@@ -33,14 +33,12 @@ services:
     depends_on:
      - postgres
 
-
 volumes:
     db-data:
       driver: local
     gogs-data:
       driver: local
-```
-{{copy}}
+```{{copy}}
 
 This file will run the Gogs frontend on port `3000`, and allow SSH access through port `10022`. 
 
@@ -64,9 +62,11 @@ We should also create an admin account under *Optional > Admin Account Settings*
 - Password: `password`{{copy}}
 - Email: `test@example.com`{{copy}}
 
-Click install, and you are now done with configuring your Git server!
+![The settings for Gogs](img/gogs_settings.png)
+
+Click install, and you are done with configuring your Git server!
 
 ## Using Gogs
-Let's create a repository on the admin account and explore the functionality of Gogs. Under My Repositories, click the plus symbol to create a new one.
+We can now create new repositories, review pull requests, register new users and use Gogs the same way that we would use GitHub. Cloning through HTTPS works as per usual, and cloning through SSH is also possible by adding your public RSA key and using SSH to the port 10022, as defined in `docker-compose.yml`. 
 
-Make the repository name anything you like and hit create.
+The functionality mostly mirrors that of GitHub, and makes Gogs an easy self-hosted replacement. You're ready to break free of GitHub's hosting now, and embrace the true power of open source software!
