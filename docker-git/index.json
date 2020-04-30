@@ -11,15 +11,16 @@
     },
     {
       "title":"Containerize it with Docker",
-      "text": "docker.md"
+      "text": "docker.md",
+      "courseData": "teardown.sh"
     }, 
-  {
-    "title":"Setup Gogs as a GUI",
-    "text":"gogs.md"
-  }],
+    {
+      "title":"Setup Gogs as a GUI",
+      "text":"gogs.md",
+      "courseData": "teardown.sh"
+    }],
     "intro": {
-      "text": "intro.md",
-      "courseData": "setup.sh"
+      "text": "intro.md"
     },
     "finish": {
       "text": "finish.md"
