@@ -21,22 +21,22 @@ Make sure SSH is running:
 
 `service ssh start`{{execute T1}}
 
-Next add a user for the Git server and a password:
+Next add a user for the Git server and a password. The following command will set the password to `password123`:
 
-`useradd -m git && passwd git`{{execute T1}}
+`useradd -m git && echo 'git:password123' | chpasswd `{{execute T1}}
 
 Let's change user to the newly created `git` account.
 
 `su git`{{execute T1}}
 
-Next create a SSH key for your new user. The command will ask for a file location and a passphrase: accept the default file and leave the passphrase empty. On your real server, the passphrase should be made secure.
+Next create a SSH key for your new user. This command will place the keys in `~/.ssh` and leave the passphrase empty. On your real server, the passphrase should be made secure.
 
-`ssh-keygen -t rsa`{{execute T1}}
+`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa`{{execute T1}}
 
 ## Adding an authorized user
 In order to connect to the Git server without having to enter its password, let's add the client's public SSH key to the list of authorized keys on the server. Start by generating a SSH key on the client if you do not already have one:
 
-`ssh-keygen -t rsa`{{execute T2}}
+`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa`{{execute T2}}
 
 As before, the default settings are sufficient for this tutorial. In real life you'll want a more secure passphrase.
 
@@ -77,7 +77,7 @@ Create a sample file:
 
 `echo 'Hello' > greeting.txt`{{execute T2}}
 
-Setup git on the client:
+Setup git on the client by letting it know who you are:
 
 `git config --global user.name "Your Name" && git config --global user.email "you@example.com"`{{execute T2}}
 
@@ -85,7 +85,7 @@ Add the file and commit it:
 
 `git add greeting.txt && git commit -m "Greeting added!"`{{execute T2}}
 
-Next add the server as a remote and push your changes to it:
+Next add the server as a remote and push your changes to it. Note that we use the file path to the repository on the remote:
 
 `git remote add origin ssh://git@localhost/home/git/project-1.git`{{execute T2}}
 
