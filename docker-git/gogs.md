@@ -51,7 +51,7 @@ https://[[HOST_SUBDOMAIN]]-3000-[[KATACODA_HOST]].environments.katacoda.com
 ## Configuring Gogs
 In the configuration screen, there are a few settings that we have to change. 
 These are:
-- DB type: Postgres
+- DB type: PostgreSQL
 - DB host: `postgres:5432`{{copy}} 
 - User: `gogsuser`{{copy}} (defined in the YAML file under `services.postgres.environment`)
 - Password: `gogspassword`{{copy}} (defined in the YAML file under `services.postgres.environment`)
