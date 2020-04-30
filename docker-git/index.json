@@ -18,7 +18,8 @@
     "text":"gogs.md"
   }],
     "intro": {
-      "text": "intro.md"
+      "text": "intro.md",
+      "courseData": "setup.sh"
     },
     "finish": {
       "text": "finish.md"
@@ -26,7 +27,8 @@
   },
   "files":[
     "Dockerfile",
-    "docker-compose.yml"
+    "docker-compose.yml",
+    "jokes.txt"
   ],
   "environment": {
     "uilayout": "editor-terminal",
