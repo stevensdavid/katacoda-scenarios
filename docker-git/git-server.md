@@ -29,9 +29,9 @@ Let's change user to the newly created `git` account.
 
 `su git`{{execute T1}}
 
-Next create a SSH key for your new user. This command will place the keys in `~/.ssh` and leave the passphrase empty. On your real server, the passphrase should be made secure.
+Next create a SSH key for your new user. This command will place the keys in `~/.ssh` and leave the passphrase empty. It will replace any existing keys. On your real server, the passphrase should be made secure.
 
-`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa`{{execute T1}}
+`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa <<< y`{{execute T1}}
 
 We can leave the `git` account now.
 
@@ -40,13 +40,13 @@ We can leave the `git` account now.
 ## Adding an authorized user
 In order to connect to the Git server without having to enter its password, let's add the client's public SSH key to the list of authorized keys on the server. Start by generating a SSH key on the client if you do not already have one:
 
-`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa`{{execute T2}}
+`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa <<< y`{{execute T2}}
 
 As before, the default settings are sufficient for this tutorial. In real life you'll want a more secure passphrase.
 
 Next, add the client's public key to the server:
 
-`cat ~/.ssh/id_rsa.pub | ssh git@localhost "mkdir -p ~/.ssh && cat >>  ~/.ssh/authorized_keys"`{{execute T2}}
+`ssh-copy-id git@localhost`{{execute T2}}
 
 Of course, `localhost` would be replaced with the IP address of your server if this were to be replicated on a real machine.
 
