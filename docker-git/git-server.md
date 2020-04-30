@@ -2,6 +2,12 @@
 
 How to setup your own Git server
 
+Let's start by changing the prompts of our client and server so we can tell them apart:
+
+`PS1="server $ "`{{execute T1}}
+
+`PS1="client $ "`{{execute T2}}
+
 ## Setting up the server
 First install `git-core` on the server machine:
 

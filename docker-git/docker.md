@@ -9,6 +9,7 @@ The first step of creating the Dockerfile is deciding which operating system to 
 Next, we need to install our dependencies: the git core server software and SSH server:
 
 `RUN apt-get update`{{copy}}
+
 `RUN apt-get install -y git-core && apt-get install -y openssh-server`{{copy}}
 
 We now have to create the `git` user. Since we cannot provide input to the commands during the Docker build process, we have to set the password in the Dockerfile. This is done with the `chpasswd` command.
@@ -25,7 +26,7 @@ In order to start the SSH server, we have to change back to the root user.
 `USER root`{{copy}} 
 
 We also have to create a directory for the SSH daemon to use:
-`echo 'RUN mkdir -p /run/sshd' >> Dockerfile`{{copy}} 
+`RUN mkdir -p /run/sshd`{{copy}} 
 
 Finally, we expose port 22 to allow incoming SSH connections and start the SSH server using `sshd`.
 

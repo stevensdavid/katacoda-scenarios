@@ -28,7 +28,8 @@
     "Dockerfile"
   ],
   "environment": {
-    "uilayout": "editor-terminal"
+    "uilayout": "editor-terminal",
+    "uisettings":"dockerfile"
   },
   "backend": {
     "imageid": "docker"
