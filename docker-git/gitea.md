@@ -1,7 +1,42 @@
 # GUI it!
+There are multiple alternatives ...
 
-https://[[HOST_SUBDOMAIN]]-80-[[KATACODA_HOST]].environments.katacoda.com
+```yml
+version: '2'
 
-`export GITLAB_HOME=/srv`{{execute T1}}
+services:
+  postgres:
+    image: postgres:9.5
+    restart: always
+    environment:
+     - "POSTGRES_USER=gogsuser"
+     - "POSTGRES_PASSWORD=gogspassword"
+     - "POSTGRES_DB=gogs"
+    volumes:
+     - "db-data:/var/lib/postgresql/data"
+  gogs:
+    image: gogs/gogs:latest
+    restart: always
+    ports:
+     - "10022:22"
+     - "3000:3000"
+    links:
+     - postgres
+    environment:
+     - "RUN_CROND=true"
+    volumes:
+     - "gogs-data:/data"
+    depends_on:
+     - postgres
 
-`docker run --detach --hostname gitlab.example.com --publish 443:443 --publish 80:80 --publish 22:22 --name gitlab --restart always --volume $GITLAB_HOME/gitlab/config:/etc/gitlab --volume $GITLAB_HOME/gitlab/logs:/var/log/gitlab --volume $GITLAB_HOME/gitlab/data:/var/opt/gitlab gitlab/gitlab-ce:latest`{{execute T1}}
+
+volumes:
+    db-data:
+      driver: local
+    gogs-data:
+      driver: local
+```{{copy}}
+
+https://[[HOST_SUBDOMAIN]]-3000-[[KATACODA_HOST]].environments.katacoda.com
+
+`docker-compose up -d`{{execute T1}}

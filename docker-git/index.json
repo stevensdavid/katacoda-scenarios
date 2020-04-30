@@ -25,7 +25,8 @@
     }
   },
   "files":[
-    "Dockerfile"
+    "Dockerfile",
+    "docker-compose.yml"
   ],
   "environment": {
     "uilayout": "editor-terminal",
