@@ -37,19 +37,6 @@ We can leave the `git` account now.
 
 `exit`{{execute T1}}
 
-## Adding an authorized user
-In order to connect to the Git server without having to enter its password, let's add the client's public SSH key to the list of authorized keys on the server. Start by generating a SSH key on the client if you do not already have one:
-
-`ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa <<< y`{{execute T2}}
-
-As before, the default settings are sufficient for this tutorial. In real life you'll want a more secure passphrase.
-
-Next, add the client's public key to the server:
-
-`ssh-copy-id git@localhost`{{execute T2}}
-
-Of course, `localhost` would be replaced with the IP address of your server if this were to be replicated on a real machine.
-
 ## Create a repository
 In order to create new repositories through the CLI, we have to create them manually on the server. Luckily, we can do this over SSH. Start by logging into the server from the client:
 
