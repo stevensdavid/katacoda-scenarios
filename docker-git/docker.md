@@ -2,36 +2,36 @@
 In order to make the server configuration more maintainable and consistent between machines, it can be beneficial to contain it within a Docker image. This process essentially consists of containerizing the commands that were executed directly on the server in the previous step.
 
 ## Writing the Dockerfile
-The first step of creating the Dockerfile is deciding which operating system to run the Git server on. For this tutorial, we will use Ubuntu 18.04. This is done by adding the line `FROM ubuntu:18.04` to the top of the Dockerfile
+The first step of creating the Dockerfile is deciding which operating system to run the Git server on. For this tutorial, we will use Ubuntu 18.04. This is done by adding the line `FROM ubuntu:18.04` to the top of the Dockerfile. You can do this in the editor window.
 
-`echo 'FROM ubuntu:18.04' > Dockerfile`{{execute T1}}
+`FROM ubuntu:18.04`{{copy}}
 
 Next, we need to install our dependencies: the git core server software and SSH server:
 
-`echo 'RUN apt-get update' >> Dockerfile`{{execute T1}}
-`echo 'RUN apt-get install -y git-core && apt-get install -y openssh-server' >> Dockerfile`{{execute T1}}
+`RUN apt-get update`{{copy}}
+`RUN apt-get install -y git-core && apt-get install -y openssh-server`{{copy}}
 
 We now have to create the `git` user. Since we cannot provide input to the commands during the Docker build process, we have to set the password in the Dockerfile. This is done with the `chpasswd` command.
 
-`echo 'RUN useradd -m git && echo 'git:password123' | chpasswd' >> Dockerfile`{{execute T1}}
+`RUN useradd -m git && echo 'git:password123' | chpasswd`{{copy}}
 
 At this point, we should change user to the `git` user in order to create the appropriate SSH keys. When generating the keys, we use the command line flags to provide input instead of relying on the CLI of `ssh-keygen`.
 
-`echo 'USER git' >> Dockerfile`{{execute T1}}
+`USER git`{{copy}}
 
-`echo "RUN mkdir -p ~/.ssh && mkdir -p /run/sshd && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa" >> Dockerfile`{{execute T1}} 
+`RUN mkdir -p ~/.ssh && ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa`{{copy}} 
 
 In order to start the SSH server, we have to change back to the root user.
-`echo 'USER root'>> Dockerfile`{{execute T1}}
+`USER root`{{copy}} 
 
 We also have to create a directory for the SSH daemon to use:
-`echo 'RUN mkdir -p /run/sshd' >> Dockerfile`{{execute T1}}
+`echo 'RUN mkdir -p /run/sshd' >> Dockerfile`{{copy}} 
 
 Finally, we expose port 22 to allow incoming SSH connections and start the SSH server using `sshd`.
 
-`echo 'EXPOSE 22' >> Dockerfile`{{execute T1}}
+`EXPOSE 22`{{copy}} 
 
-`echo 'CMD ["/usr/sbin/sshd", "-D"]'>> Dockerfile`{{execute T1}}
+`CMD ["/usr/sbin/sshd", "-D"]`{{copy}} 
 
 Our complete Dockerfile is now
 ```Dockerfile

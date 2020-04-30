@@ -5,23 +5,23 @@ How to setup your own Git server
 ## Setting up the server
 First install `git-core` on the server machine:
 
-`sudo apt update && sudo apt-get install -y git-core`{{execute T1}}
+`apt update && apt-get install -y git-core`{{execute T1}}
 
 In order to allow clients to connect to the server, we need to setup SSH access. Start by installing a SSH server.
 
-`sudo apt install -y openssh-server`{{execute T1}}
+`apt install -y openssh-server`{{execute T1}}
 
 Make sure SSH is running: 
 
-`sudo service ssh start`{{execute T1}}
+`service ssh start`{{execute T1}}
 
 Next add a user for the Git server and a password:
 
-`sudo useradd -m git && passwd git`{{execute T1}}
+`useradd -m git && passwd git`{{execute T1}}
 
 Let's change user to the newly created `git` account.
 
-`sudo su git`{{execute T1}}
+`su git`{{execute T1}}
 
 Next create a SSH key for your new user. The command will ask for a file location and a passphrase: accept the default file and leave the passphrase empty. On your real server, the passphrase should be made secure.
 
@@ -59,9 +59,9 @@ Now we want to push something to our new Git repository on our local machine. Le
 
 On the client machine, install the Git client:
 
-`sudo apt install git`{{execute T2}}
+`apt install git`{{execute T2}}
 
-Create a new folder, cd to it and intialize it as a regular Git repository:
+Create a new folder, cd to it and initialize it as a regular Git repository:
 
 `mkdir -p ~/git/project && cd ~/git/project`{{execute T2}}
 
