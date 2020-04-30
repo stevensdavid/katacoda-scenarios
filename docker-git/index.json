@@ -27,9 +27,11 @@
   },
   "files":[
     "Dockerfile",
-    "docker-compose.yml",
-    "jokes.txt"
+    "docker-compose.yml"
   ],
+  "assets":{
+    "client": [{"file":"jokes.txt", "target":"~/"}]
+  },
   "environment": {
     "uilayout": "editor-terminal",
     "uisettings":"dockerfile"
